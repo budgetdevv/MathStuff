@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathStuff", "MathStuff\MathStuff.csproj", "{B18E6FF8-611A-4A85-B6CA-F9026E568EAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B18E6FF8-611A-4A85-B6CA-F9026E568EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B18E6FF8-611A-4A85-B6CA-F9026E568EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B18E6FF8-611A-4A85-B6CA-F9026E568EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B18E6FF8-611A-4A85-B6CA-F9026E568EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
