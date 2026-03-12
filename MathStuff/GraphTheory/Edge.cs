@@ -9,5 +9,7 @@ namespace MathStuff.GraphTheory
             from = From;
             to = To;
         }
+
+        public Edge Invert() => new(To, From);
     }
 }

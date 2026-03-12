@@ -39,7 +39,7 @@ namespace MathStuff.GraphTheory
 
                 if (!isDirectedGraph)
                 {
-                    var reversedEdge = new Edge(edge.To, edge.From);
+                    var reversedEdge = edge.Invert();
 
                     if (!edgeSet.Add(reversedEdge))
                     {
