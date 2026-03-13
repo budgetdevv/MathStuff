@@ -6,7 +6,7 @@ namespace MathStuff.GraphTheory
 
         private readonly Edge[] Edges;
 
-        private readonly bool IsDirectedGraph;
+        internal readonly bool IsDirectedGraph;
 
         public Graph(Vertex[] vertices, Edge[] edges, bool isDirectedGraph)
         {
@@ -55,6 +55,22 @@ namespace MathStuff.GraphTheory
             Edges = edges;
 
             IsDirectedGraph = isDirectedGraph;
+        }
+
+        public override string ToString()
+        {
+            var verticesText = string.Join(", ", Vertices);
+
+            var edgesText = string.Join(", ", Edges.Select(x => x.GetLabel(this)));
+
+            return
+            $$"""
+            Vertices: { {{verticesText}} }
+            
+            Edges: { {{edgesText}} }
+            
+            Is Directed: {{IsDirectedGraph}}
+            """;
         }
     }
 }

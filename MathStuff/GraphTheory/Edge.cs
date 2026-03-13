@@ -11,5 +11,16 @@ namespace MathStuff.GraphTheory
         }
 
         public Edge Invert() => new(To, From);
+
+        public string GetLabel(Graph graph)
+        {
+            var fromToText = $"{From}, {To}";
+
+            var isDirectedGraph = graph.IsDirectedGraph;
+
+            return !isDirectedGraph ?
+                $$"""{ {{fromToText}} }""" :
+                $"( {fromToText} )";
+        }
     }
 }

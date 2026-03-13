@@ -5,5 +5,10 @@ namespace MathStuff.GraphTheory
         public static implicit operator Vertex(int value) => new(value);
 
         public static implicit operator int(Vertex vertex) => vertex.Value;
+
+        public override string ToString()
+        {
+            return $"V{Value}";
+        }
     }
 }
