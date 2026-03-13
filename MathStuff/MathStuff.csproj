@@ -7,4 +7,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="NoParamlessCtor" Version="1.1.1-alpha.35.e8ab78e" />
+    </ItemGroup>
+
 </Project>

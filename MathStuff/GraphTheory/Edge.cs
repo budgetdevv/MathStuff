@@ -1,6 +1,9 @@
+using NoParamlessCtor.Shared.Attributes;
+
 namespace MathStuff.GraphTheory
 {
-    public readonly record struct Edge(Vertex From, Vertex To)
+    [NoParamlessCtor]
+    public readonly partial record struct Edge(Vertex From, Vertex To)
     {
         public static implicit operator Edge((Vertex From, Vertex To) edge) => new(edge.From, edge.To);
 
