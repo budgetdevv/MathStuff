@@ -6,6 +6,8 @@ namespace MathStuff.GraphTheory
 
         private readonly Edge[] Edges;
 
+        private readonly bool IsDirectedGraph;
+
         public Graph(Vertex[] vertices, Edge[] edges, bool isDirectedGraph)
         {
             var vertexSet = new HashSet<Vertex>();
@@ -51,6 +53,8 @@ namespace MathStuff.GraphTheory
             Vertices = vertices;
 
             Edges = edges;
+
+            IsDirectedGraph = isDirectedGraph;
         }
     }
 }
