@@ -1,6 +1,6 @@
 ﻿using MathStuff.GraphTheory;
 
-namespace MathStuff
+namespace MathStuff.Skribble
 {
     internal static class Program
     {
