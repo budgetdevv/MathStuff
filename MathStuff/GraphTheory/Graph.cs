@@ -1,3 +1,6 @@
+using System.Collections.Frozen;
+using System.Runtime.InteropServices;
+
 namespace MathStuff.GraphTheory
 {
     public sealed class Graph
@@ -7,6 +10,15 @@ namespace MathStuff.GraphTheory
         private readonly Edge[] Edges;
 
         internal readonly bool IsDirectedGraph;
+
+        public readonly struct VertexData(uint[] edgeIndices)
+        {
+            private readonly uint[] EdgeIndices = edgeIndices;
+
+            public uint Degree => unchecked((uint) EdgeIndices.Length);
+        }
+
+        private readonly FrozenDictionary<Vertex, VertexData> VertexToDataMap;
 
         public Graph(Vertex[] vertices, Edge[] edges, bool isDirectedGraph)
         {
@@ -21,6 +33,10 @@ namespace MathStuff.GraphTheory
                     throw new ArgumentException($"Duplicate vertex: {vertex}");
                 }
             }
+
+            var vertexToEdgeIndicesMap = new Dictionary<Vertex, List<uint>>();
+
+            uint currentEdgeIndex = 0;
 
             foreach (var edge in edges)
             {
@@ -48,6 +64,34 @@ namespace MathStuff.GraphTheory
                         throw new ArgumentException($"Duplicate edge: {reversedEdge}");
                     }
                 }
+
+                var leftVertex = edge.From;
+
+                var rightVertex = edge.To;
+
+                var leftVertexEdgeIndices = GetOrCreateEdgeIndices(leftVertex, vertexToEdgeIndicesMap);
+
+                var rightVertexEdgeIndices = GetOrCreateEdgeIndices(rightVertex, vertexToEdgeIndicesMap);
+
+                leftVertexEdgeIndices.Add(currentEdgeIndex);
+
+                rightVertexEdgeIndices.Add(currentEdgeIndex);
+
+                currentEdgeIndex++;
+
+                continue;
+
+                static List<uint> GetOrCreateEdgeIndices(Vertex vertex, Dictionary<Vertex, List<uint>> map)
+                {
+                    ref var slot = ref CollectionsMarshal.GetValueRefOrAddDefault(map, vertex, out var exists);
+
+                    if (!exists)
+                    {
+                        slot = [];
+                    }
+
+                    return slot!;
+                }
             }
 
             Vertices = vertices;
@@ -55,6 +99,15 @@ namespace MathStuff.GraphTheory
             Edges = edges;
 
             IsDirectedGraph = isDirectedGraph;
+
+            var vertexToDataMap = new Dictionary<Vertex, VertexData>(vertexToEdgeIndicesMap.Count);
+
+            foreach (var (vertex, edgeIndices) in vertexToEdgeIndicesMap)
+            {
+                vertexToDataMap.Add(vertex, new(edgeIndices.ToArray()));
+            }
+
+            VertexToDataMap = vertexToDataMap.ToFrozenDictionary();
         }
 
         public override string ToString()
