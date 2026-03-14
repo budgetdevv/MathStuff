@@ -121,6 +121,24 @@ namespace MathStuff.GraphTheory
             return unchecked((uint) _vertices.IndexOf(vertex));
         }
 
+        public VertexData GetVertexData(Vertex vertex)
+        {
+            // It is fine for the index to be out of range,
+            // since the array access will just throw an exception...
+
+            var vertexIndex = GetVertexIndex(vertex);
+
+            var vertexData = _vertexData;
+
+            // This pattern elides bounds check ( GetVertexIndex() returns uint )
+            if (vertexIndex < vertexData.Length)
+            {
+                return vertexData[vertexIndex];
+            }
+
+            throw new ArgumentException($"Vertex {vertex} is not in the graph");
+        }
+
         public override string ToString()
         {
             var verticesText = string.Join(", ", _vertices);
