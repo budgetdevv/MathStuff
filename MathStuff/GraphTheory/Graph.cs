@@ -16,9 +16,9 @@ namespace MathStuff.GraphTheory
         [NoParamlessCtor]
         public readonly partial struct VertexData(uint[] edgeIndices)
         {
-            private readonly uint[] _edgeIndices = edgeIndices;
+            internal readonly uint[] EdgeIndices = edgeIndices;
 
-            public uint Degree => unchecked((uint) _edgeIndices.Length);
+            public uint Degree => unchecked((uint) EdgeIndices.Length);
         }
 
         public Graph(Vertex[] vertices, Edge[] edges, bool isDirectedGraph)
