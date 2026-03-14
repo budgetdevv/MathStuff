@@ -1,8 +1,9 @@
 using System.Runtime.InteropServices;
+using NoParamlessCtor.Shared.Attributes;
 
 namespace MathStuff.GraphTheory
 {
-    public sealed class Graph
+    public sealed partial class Graph
     {
         private readonly Vertex[] _vertices;
 
@@ -12,7 +13,8 @@ namespace MathStuff.GraphTheory
 
         internal readonly bool IsDirectedGraph;
 
-        public readonly struct VertexData(uint[] edgeIndices)
+        [NoParamlessCtor]
+        public readonly partial struct VertexData(uint[] edgeIndices)
         {
             private readonly uint[] _edgeIndices = edgeIndices;
 
