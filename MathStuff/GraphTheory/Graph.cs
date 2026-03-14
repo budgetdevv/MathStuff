@@ -1,4 +1,3 @@
-using System.Collections.Frozen;
 using System.Runtime.InteropServices;
 
 namespace MathStuff.GraphTheory
@@ -9,6 +8,8 @@ namespace MathStuff.GraphTheory
 
         private readonly Edge[] _edges;
 
+        private readonly VertexData[] _vertexData;
+
         internal readonly bool IsDirectedGraph;
 
         public readonly struct VertexData(uint[] edgeIndices)
@@ -17,8 +18,6 @@ namespace MathStuff.GraphTheory
 
             public uint Degree => unchecked((uint) _edgeIndices.Length);
         }
-
-        private readonly FrozenDictionary<Vertex, VertexData> _vertexToDataMap;
 
         public Graph(Vertex[] vertices, Edge[] edges, bool isDirectedGraph)
         {
@@ -100,14 +99,16 @@ namespace MathStuff.GraphTheory
 
             IsDirectedGraph = isDirectedGraph;
 
-            var vertexToDataMap = new Dictionary<Vertex, VertexData>(vertexToEdgeIndicesMap.Count);
+            var vertexDataList = new List<VertexData>();
 
-            foreach (var (vertex, edgeIndices) in vertexToEdgeIndicesMap)
+            foreach (var vertex in vertices)
             {
-                vertexToDataMap.Add(vertex, new(edgeIndices.ToArray()));
+                var edgeIndices = vertexToEdgeIndicesMap[vertex].ToArray();
+
+                vertexDataList.Add(new(edgeIndices));
             }
 
-            _vertexToDataMap = vertexToDataMap.ToFrozenDictionary();
+            _vertexData = vertexDataList.ToArray();
         }
 
         public override string ToString()
