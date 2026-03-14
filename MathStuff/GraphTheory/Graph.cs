@@ -5,20 +5,20 @@ namespace MathStuff.GraphTheory
 {
     public sealed class Graph
     {
-        private readonly Vertex[] Vertices;
+        private readonly Vertex[] _vertices;
 
-        private readonly Edge[] Edges;
+        private readonly Edge[] _edges;
 
         internal readonly bool IsDirectedGraph;
 
         public readonly struct VertexData(uint[] edgeIndices)
         {
-            private readonly uint[] EdgeIndices = edgeIndices;
+            private readonly uint[] _edgeIndices = edgeIndices;
 
-            public uint Degree => unchecked((uint) EdgeIndices.Length);
+            public uint Degree => unchecked((uint) _edgeIndices.Length);
         }
 
-        private readonly FrozenDictionary<Vertex, VertexData> VertexToDataMap;
+        private readonly FrozenDictionary<Vertex, VertexData> _vertexToDataMap;
 
         public Graph(Vertex[] vertices, Edge[] edges, bool isDirectedGraph)
         {
@@ -94,9 +94,9 @@ namespace MathStuff.GraphTheory
                 }
             }
 
-            Vertices = vertices;
+            _vertices = vertices;
 
-            Edges = edges;
+            _edges = edges;
 
             IsDirectedGraph = isDirectedGraph;
 
@@ -107,14 +107,14 @@ namespace MathStuff.GraphTheory
                 vertexToDataMap.Add(vertex, new(edgeIndices.ToArray()));
             }
 
-            VertexToDataMap = vertexToDataMap.ToFrozenDictionary();
+            _vertexToDataMap = vertexToDataMap.ToFrozenDictionary();
         }
 
         public override string ToString()
         {
-            var verticesText = string.Join(", ", Vertices);
+            var verticesText = string.Join(", ", _vertices);
 
-            var edgesText = string.Join(", ", Edges.Select(x => x.GetLabel(this)));
+            var edgesText = string.Join(", ", _edges.Select(x => x.GetLabel(this)));
 
             return
             $$"""
