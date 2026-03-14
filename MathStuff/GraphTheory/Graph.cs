@@ -113,6 +113,14 @@ namespace MathStuff.GraphTheory
             _vertexData = vertexDataList.ToArray();
         }
 
+        private uint GetVertexIndex(Vertex vertex)
+        {
+            // For what is worth, this should be faster than using a dict
+            // since the size of the array is likely to be small,
+            // which means we are hitting CPU cache for most part
+            return unchecked((uint) _vertices.IndexOf(vertex));
+        }
+
         public override string ToString()
         {
             var verticesText = string.Join(", ", _vertices);
