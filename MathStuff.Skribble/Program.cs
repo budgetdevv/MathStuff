@@ -11,7 +11,7 @@ namespace MathStuff.Skribble
             var vertex2 = VERTEX_2;
 
             var graph = new Graph(
-                vertices: [ 1, vertex2, 3 ],
+                vertices: [ 1, vertex2, 3, 4 ],
                 edges: [ (1, vertex2), (vertex2, 3) ],
                 isDirectedGraph: false
             );

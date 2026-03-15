@@ -13,6 +13,8 @@ namespace MathStuff.GraphTheory
 
         internal readonly bool IsDirectedGraph;
 
+        public readonly bool IsConnected;
+
         [NoParamlessCtor]
         public readonly partial struct VertexData(uint[] edgeIndices)
         {
@@ -105,12 +107,17 @@ namespace MathStuff.GraphTheory
 
             foreach (var vertex in vertices)
             {
-                var edgeIndices = vertexToEdgeIndicesMap[vertex].ToArray();
+                if (!vertexToEdgeIndicesMap.TryGetValue(vertex, out var edgeIndices))
+                {
+                    edgeIndices = [];
+                }
 
-                vertexDataList.Add(new(edgeIndices));
+                vertexDataList.Add(new(edgeIndices.ToArray()));
             }
 
-            _vertexData = vertexDataList.ToArray();
+            var vertexData = _vertexData = vertexDataList.ToArray();
+
+            IsConnected = vertexData.All(x => x.Degree > 0);
         }
 
         private uint GetVertexIndex(Vertex vertex)
@@ -152,6 +159,8 @@ namespace MathStuff.GraphTheory
             Edges: { {{edgesText}} }
             
             Is Directed: {{IsDirectedGraph}}
+            
+            Is Connected: {{IsConnected}}
             """;
         }
     }
